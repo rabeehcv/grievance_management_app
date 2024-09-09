@@ -1,5 +1,6 @@
 package com.personal.grievance.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -36,5 +37,6 @@ public class Users {
     private String phone;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private Set<Grievance> grievances;
 }

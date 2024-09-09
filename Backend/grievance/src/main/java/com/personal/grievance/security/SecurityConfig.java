@@ -24,13 +24,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())  // Disable CSRF protection
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/users/create", "/auth/**", "/grievances/submit").permitAll()  // Allow access to "/create" endpoint without authentication
-                        .anyRequest().authenticated()  // All other requests require authentication
+                        .requestMatchers("/users/**", "/auth/**", "/grievances/**", "/supervisor/**", "/assignee/**", "/grievances/user").permitAll()  // Allow access to "/create" endpoint without authentication
+                        .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .httpBasic(withDefaults -> {});  // Enables HTTP Basic authentication
+                .httpBasic(withDefaults -> {});
 
         return http.build();
     }

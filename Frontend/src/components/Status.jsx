@@ -4,6 +4,7 @@ import {useState, useContext, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import LogoutButton from './LogoutButton.jsx';
 import UserTab from './UserTab.jsx';
+import '../styles/Status.css';
 
 
 const Status = () => {
@@ -36,20 +37,22 @@ const Status = () => {
     };
 
     return (
-        <div>
+        <div className="status-container">
             <LogoutButton />
-            <h2> Status </h2>
+            <h2 className="h2-status"> Status </h2>
             {grievances.length? (
-                <ul>
+                <ul className="status-list">
                     {grievances.map( grievance => (
-                        <li key = {grievance.grievanceId}>
+                        <li key = {grievance.grievanceId} className="grievance-item">
                             <div>
-                                <strong>{grievance.title}</strong> - {grievance.status}
-                                <button onClick={() => toggleDetails(grievance.grievanceId)}>
+                                <div>
+                                    <strong>{grievance.title}</strong> - {grievance.status}
+                                </div>
+                                <button className="view-details-button" onClick={() => toggleDetails(grievance.grievanceId)}>
                                     {expandedGrievances[grievance.grievanceId] ? 'Hide Details' : 'View Details'}
                                 </button>
                                 {expandedGrievances[grievance.grievanceId] && (
-                                    <div style = {{marginTop:'10px', marginLeft:'20px'}}>
+                                    <div  className="grievance-details">
                                         <p><strong>Title: </strong>{grievance.title}</p>
                                         <p><strong>Description: </strong>{grievance.description}</p>
                                         <p><strong>Status: </strong>{grievance.status}</p>
@@ -61,7 +64,7 @@ const Status = () => {
                     ))}
                 </ul>
             ) : (
-                <p> No grievances found</p>
+                <p className="no-grievances-message"> No grievances found</p>
             )}
             <UserTab />
         </div>

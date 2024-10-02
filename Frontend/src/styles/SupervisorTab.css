@@ -1,0 +1,57 @@
+.supervisor-tab-container {
+  position: fixed;
+  bottom: 0px;
+  left: 55px;
+  right: 40px;
+  width: 91.5%;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 20px;
+  background-color: #f1e2af;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.supervisor-tab-button {
+  background-color: #f7fdff;
+  color: #213547;
+  padding: 10px 20px;
+  margin: 0 10px;
+  font-size: 1rem;
+  width: 40%;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.supervisor-tab-button:hover {
+  background-color: #535bf2;
+  color: white;
+}
+
+.supervisor-tab-button:focus {
+  outline: none;
+  border: 2px solid #535bf2;
+}
+@media (max-width: 768px) {
+  .supervisor-tab-container {
+    flex-direction: row;
+    gap: 0px;
+    margin-top: 15px;
+    padding: 10px;
+    height: 3.2em;
+    bottom: 0px;
+    right: 0px;
+    left: 8px;
+    width: 90%;
+  }
+
+  .supervisor-tab-button {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+}

@@ -1,0 +1,68 @@
+.unassigned-grievances-container {
+  margin: 20px auto;
+  padding: 10px;
+  overflow-x: auto;
+  background-color: #fcfcfc;
+  left: 50px;
+  right: 40px;
+  width: 91.55%;
+  border-radius: 5px;
+}
+
+.h2-unassigned {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.unassigned-grievance-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 100px;
+}
+
+.unassigned-grievance-item {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+.unassigned-grievance-item p {
+  margin: 10px 0;
+}
+
+.toggle-details-button,
+.assign-button,
+.submit-button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.assignment-section {
+  display: flex;
+  flex-direction: row;
+  margin-top: 25px;
+  gap: 30px;
+}
+.assignee-dropdown,
+.category-dropdown {
+  width: 100%;
+  padding: 10px;
+}
+@media (max-width: 768px) {
+  .unassigned-grievances-container {
+    max-width: 100%;
+    padding: 5px;
+  }
+
+  .toggle-details-button,
+  .assign-button,
+  .submit-button {
+    width: 100%;
+  }
+}

@@ -1,4 +1,5 @@
 import {useNavigate} from 'react-router-dom';
+import '../styles/UserTab.css';
 
 const UserTab = () => {
     const navigate = useNavigate();
@@ -6,10 +7,10 @@ const UserTab = () => {
         navigate(path);
     }
     return (
-        <div style = {{ marginTop : '20px'}}>
-                <button onClick ={() => handleNavigation('/user/grievance')}>Grievance Submission</button>
-                <button onClick ={() => handleNavigation("/user/status")}>Status</button>
-                <button onClick ={() => handleNavigation("/user/account")}>Account</button>
+        <div className="user-tab-container">
+                <button className="tab-button" onClick ={() => handleNavigation('/user/grievance')}>Grievance Submission</button>
+                <button className="tab-button" onClick ={() => handleNavigation("/user/status")}>Status</button>
+                <button className="tab-button" onClick ={() => handleNavigation("/user/account")}>Account</button>
             </div>
     )
 }

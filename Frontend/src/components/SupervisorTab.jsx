@@ -1,4 +1,5 @@
 import {useNavigate} from 'react-router-dom';
+import '../styles/SupervisorTab.css';
 
 const SupervisorTab = () => {
     const navigate = useNavigate();
@@ -6,10 +7,10 @@ const SupervisorTab = () => {
         navigate(path);
     }
     return (
-        <div style = {{ marginTop : '20px'}}>
-            <button onClick ={() => handleNavigation('/supervisor/unassignedGrievances')}>Unassigned Grievances</button>
-            <button onClick ={() => handleNavigation("/supervisor/assignedGrievances")}>Status</button>
-            <button onClick ={() => handleNavigation("/user/account")}>Account</button>
+        <div className="supervisor-tab-container">
+            <button className="supervisor-tab-button" onClick ={() => handleNavigation('/supervisor/unassignedGrievances')}>Unassigned Grievances</button>
+            <button className="supervisor-tab-button" onClick ={() => handleNavigation("/supervisor/assignedGrievances")}>Status</button>
+            <button className="supervisor-tab-button" onClick ={() => handleNavigation("/user/account")}>Account</button>
         </div>
     )
 }

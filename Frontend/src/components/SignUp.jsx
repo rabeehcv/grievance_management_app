@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import '../styles/SignUp.css';
 
 const SignUp = () => {
     const [firstName, setFirstName] = useState('');
@@ -23,19 +24,21 @@ const SignUp = () => {
     };
 
     return (
-        <div>
-            <h2>Sign Up</h2>
-            <form onSubmit = {handleSignUp}>
-                <input type = "text" placeholder = "First Name" value = {firstName} onChange = { (e) => setFirstName(e.target.value)} required />
-                <input type = "text" placeholder = "Last Name" vaue = {lastName} onChange = { (e) => setLastName(e.target.value)} required />
-                <input type = "email" placeholder = "Email" value = {email} onChange = { (e) => setEmail(e.target.value)} required />
-                <input type = "password" placeholder = "Password" value = {password} onChange = { (e) => setPassword(e.target.value)} required />
-                <input type = "tel" placeholder = "Phone" value = {phone} onChange = { (e) => setPhone(e.target.value)} required />
-                <button type = "submit">Submit</button>
-            </form>
-            <p>
-                Already have an account? <a href = "/Login">Log In</a>
-            </p>
+        <div className="signup-container">
+            <div className="signup-box">
+                <h2>Sign Up</h2>
+                <form onSubmit = {handleSignUp}>
+                    <input className="signup-input" type = "text" placeholder = "First Name" value = {firstName} onChange = { (e) => setFirstName(e.target.value)} required />
+                    <input className="signup-input" type = "text" placeholder = "Last Name" vaue = {lastName} onChange = { (e) => setLastName(e.target.value)} required />
+                    <input className="signup-input" type = "email" placeholder = "Email" value = {email} onChange = { (e) => setEmail(e.target.value)} required />
+                    <input className="signup-input" type = "password" placeholder = "Password" value = {password} onChange = { (e) => setPassword(e.target.value)} required />
+                    <input className="signup-input" type = "tel" placeholder = "Phone" value = {phone} onChange = { (e) => setPhone(e.target.value)} required />
+                    <button className="signup-button" type = "submit">Submit</button>
+                </form>
+                <p>
+                    Already have an account? <a href = "/Login">Log In</a>
+                </p>
+            </div>
         </div>
     );
 };

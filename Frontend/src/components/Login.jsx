@@ -2,6 +2,7 @@ import {useContext, useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import AuthContext from '../context/AuthContext.jsx'
+import '../styles/Login.css';
 
 const Login = () => {
     const [role, setRole] = useState('USER')
@@ -21,13 +22,23 @@ const Login = () => {
                 }
             });
             login(credentials)
-            //navigate('/user/grievance')
-            if(credentials.role === 'USER'){
-                navigate('/user/grievance')
-            } else if(credentials.role === 'SUPERVISOR'){
-                navigate('/supervisor/unassignedGrievances')
-            } else if(credentials.role === 'ASSIGNEE'){
-                navigate('/assignee/assignedGrievances')
+            const userData = await axios.get('http://localhost:8083/users/accountPage', {
+                auth: {
+                    username : email,
+                    password : password
+                }
+            });
+            const fetchedRole = userData.data.role;
+            if (fetchedRole === credentials.role) {
+                if (fetchedRole === 'USER') {
+                    navigate('/user/grievance');
+                } else if (fetchedRole === 'SUPERVISOR') {
+                    navigate('/supervisor/unassignedGrievances');
+                } else if (fetchedRole === 'ASSIGNEE') {
+                    navigate('/assignee/assignedGrievances');
+                }
+            } else {
+                alert("Invalid Role");
             }
             
         } catch (error) {
@@ -37,21 +48,23 @@ const Login = () => {
     };
 
     return (
-        <div>
+        <div className="login-container">
+            <div className="login-box">
             <h2>Login</h2>
             <form onSubmit = {handleLogin}>
-                <select value={role} onChange = {(e) => setRole(e.target.value)}>
+                <select value={role} onChange = {(e) => setRole(e.target.value)} className="login-select">
                     <option value = "USER">USER</option>
                     <option value = "SUPERVISOR">SUPERVISOR</option>
                     <option value = "ASSIGNEE">ASSIGNEE</option>
                 </select>
-                <input type = "email" placeholder = "Email" value = {email} onChange = {(e) => setEmail(e.target.value)} required />
-                <input type = "password" placeholder = "Password" value = {password} onChange = {(e) => setPassword(e.target.value)} required />
-                <button type = "submit">Sign In</button>
+                <input className="login-input" type = "email" placeholder = "Email" value = {email} onChange = {(e) => setEmail(e.target.value)} required />
+                <input className="login-input" type = "password" placeholder = "Password" value = {password} onChange = {(e) => setPassword(e.target.value)} required />
+                <button className="login-button" type = "submit">Sign In</button>
             </form>
             <p>
                 First time user? <a href="/signup">Sign Up</a>
             </p>
+            </div>
         </div>
     );
 };

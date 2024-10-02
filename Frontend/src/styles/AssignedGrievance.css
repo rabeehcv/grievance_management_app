@@ -1,0 +1,39 @@
+.assigned-grievances-container {
+  margin: 20px auto;
+  padding: 10px;
+  overflow-x: auto;
+  background-color: #fcfcfc;
+  left: 50px;
+  right: 40px;
+  width: 91.55%;
+  border-radius: 5px;
+}
+.h2-assigned-grievances {
+  font-size: 3rem;
+}
+.assigned-grievance-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 100px;
+}
+.assigned-grievance-item {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+.assigned-grievance-item p {
+  margin: 10px 0;
+}
+.assigned-toggle-details-button,
+.assigned-assign-button,
+.assigned-submit-button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}

@@ -6,6 +6,7 @@ import LogoutButton from './LogoutButton.jsx';
 import UserTab from './UserTab.jsx';
 import SupervisorTab from './SupervisorTab.jsx';
 import AssigneeTab from './AssigneeTab';
+import '../styles/Account.css';
 
 const Account = () => {
     const { user, login } = useContext(AuthContext);
@@ -69,44 +70,56 @@ const Account = () => {
 
 
     return (
-        <div>
+        <div className="account-container">
             <LogoutButton />
-            <h2>Account Details</h2>
-            <div>
-                <p><strong>First Name: </strong>{userDetails.firstName}</p>
-                <p><strong>Last Name: </strong>{userDetails.lastName}</p>
-
-                <p><strong>Email: </strong>{userDetails.email}</p>
-                {editingField === 'email' ? (
+            <h2 className="h2-account">Account Details</h2>
+            {userDetails ? (
+                <ul className="account-list">
                     <div>
-                        <input type = "email" placeholder= "New Email" value = {newData} onChange ={(e) => setNewData(e.target.value)} />
-                        <button type = "submit" onClick ={() => handleSubmit('email')}>Submit</button>
-                    </div>
-                ) : (
-                    <button onClick={() => handleEditClick('email')}>Edit</button>
-                )}
-
-                <p><strong>Password: </strong>{userDetails.password}</p>
-                {editingField === 'password' ? (
-                    <div>
-                        <input type = "password" placeholder= "New Password" value = {newData} onChange ={(e) => setNewData(e.target.value)} />
-                        <button type = "submit" onClick ={() => handleSubmit('password')}>Submit</button>
-                    </div>
-                ) : (
-                    <button onClick={() => handleEditClick('password')}>Edit</button>
-                )}
-
-                <p><strong>Phone: </strong>{userDetails.phone}</p>
-                {editingField === 'phone' ? (
-                    <div>
-                        <input type = "phone" placeholder= "New phone" value = {newData} onChange ={(e) => setNewData(e.target.value)} />
-                        <button type = "submit" onClick ={() => handleSubmit('phone')}>Submit</button>
-                    </div>
-                ) : (
-                    <button onClick={() => handleEditClick('phone')}>Edit</button>
-                )}
-
-            </div>
+                        <li className="account-item">
+                            <p><strong>First Name: </strong>{userDetails.firstName}</p>
+                        </li>
+                        <li className="account-item">
+                            <p><strong>Last Name: </strong>{userDetails.lastName}</p>
+                        </li>
+                        <li className="account-item">
+                            <p><strong>Email: </strong>{userDetails.email}</p>
+                            {editingField === 'email' ? (
+                                <div className="edit-input-container">
+                                    <input type="email" placeholder="New Email" value={newData} onChange={(e) => setNewData(e.target.value)} />
+                                    <button type="submit" onClick={() => handleSubmit('email')}>Submit</button>
+                                </div>
+                            ) : (
+                                <button onClick={() => handleEditClick('email')}>Edit</button>
+                            )}
+                        </li>
+                        <li className="account-item">
+                            <p><strong>Password: </strong>{userDetails.password?.substring(0, 6)}...{userDetails.password?.substring(userDetails.password?.length - 4)}</p>
+                            {editingField === 'password' ? (
+                                <div className="edit-input-container">
+                                    <input type="password" placeholder="New Password" value={newData} onChange={(e) => setNewData(e.target.value)} />
+                                    <button type="submit" onClick={() => handleSubmit('password')}>Submit</button>
+                                </div>
+                            ) : (
+                                <button onClick={() => handleEditClick('password')}>Edit</button>
+                            )}
+                        </li>
+                        <li className="account-item">
+                            <p><strong>Phone: </strong>{userDetails.phone}</p>
+                            {editingField === 'phone' ? (
+                                <div className="edit-input-container">
+                                    <input type="phone" placeholder="New Phone" value={newData} onChange={(e) => setNewData(e.target.value)} />
+                                    <button type="submit" onClick={() => handleSubmit('phone')}>Submit</button>
+                                </div>
+                            ) : (
+                                <button onClick={() => handleEditClick('phone')}>Edit</button>
+                            )}
+                        </li>
+                    </div>                 
+                </ul>
+            ) : (
+                <p className="no-details-message">No details found</p>
+            )}
             {user.role === 'USER' ? <UserTab /> : user.role === 'SUPERVISOR' ? <SupervisorTab /> : user.role === 'ASSIGNEE' ? <AssigneeTab /> : null}
         </div>
     )

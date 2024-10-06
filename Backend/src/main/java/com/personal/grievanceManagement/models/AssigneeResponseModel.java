@@ -4,9 +4,12 @@ import com.personal.grievanceManagement.entities.Users;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
-public class UsersResponseModel {
+public class AssigneeResponseModel {
     private String message;
-    private Users users;
+    private List<Users> assignees;
+    private String status;
 }

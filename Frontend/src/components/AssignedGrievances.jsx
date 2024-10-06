@@ -20,7 +20,7 @@ const AssignedGrievances = () => {
                     password: user.password,
                 },
             });
-            setGrievances(response.data);
+            setGrievances(response.data.data);
         } catch (error) {
             console.error('Fetching grievances failed', error);
         }

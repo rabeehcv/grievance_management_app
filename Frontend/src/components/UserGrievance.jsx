@@ -15,13 +15,15 @@ const UserGrievance = () => {
 
     const handleSubmitGrievance = async(e) => {
         e.preventDefault();
+        const trimmedTitle = title.trim();
+        const trimmedDescription = description.trim();
+        if (!trimmedTitle || !trimmedDescription) {
+            alert('Title and Description cannot be empty or whitespace!');
+            return; 
+        }
         const grievance = { title, description };
         try {
-            const response = await axios.post('http://localhost:8083/grievance/user/submit', null, {
-                params : {
-                    title : grievance.title,
-                    description : grievance.description
-                },
+            const response = await axios.post('http://localhost:8083/grievance/user/submit', grievance, {
                 auth : {
                     username : user.email,
                     password : user.password

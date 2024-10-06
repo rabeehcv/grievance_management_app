@@ -22,7 +22,7 @@ const Status = () => {
                     password : user.password
                 }
             });
-            setGrievances(response.data);
+            setGrievances(response.data.data);
             } catch (error) {
                 console.error('Error fetching grievnaces', error);
             }

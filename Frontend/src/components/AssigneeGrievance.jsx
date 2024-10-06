@@ -21,7 +21,7 @@ const AssigneeGrievance = () => {
                         password : user.password
                     }
                 });
-                setGrievances(response.data);
+                setGrievances(response.data.data);
             } catch(error) {
                 console.error("Fetching greivances failed.", error);
             }
@@ -42,7 +42,8 @@ const AssigneeGrievance = () => {
 
     const handleStatus = async(grievanceId) => {
         try {
-            const response = await axios.patch(`http://localhost:8083/grievance/assignee/grievanceId/${grievanceId}/updateStatus/${status}`,{},{
+            const updateStatus = {grievanceId,status}
+            const response = await axios.patch(`http://localhost:8083/grievance/assignee/updateStatus`, updateStatus,{
                 auth : {
                     username : user.email,
                     password : user.password
@@ -54,7 +55,7 @@ const AssigneeGrievance = () => {
                         password : user.password
                     }
                 });
-            setGrievances(updatedGrievances.data);
+            setGrievances(updatedGrievances.data.data);
             setEditingField(null);
         } catch(error) {
             console.error("Updating status failed.", error);

@@ -10,39 +10,58 @@ import '../styles/Account.css';
 
 const Account = () => {
     const { user, login } = useContext(AuthContext);
-    const [ userDetails, setUserDetails] = useState({});
-    const [ editingField, setEditingField] = useState(null);
-    const [ newData, setNewData ] = useState("");
+    const [userDetails, setUserDetails] = useState({});
+    const [editingField, setEditingField] = useState(null);
+    const [newData, setNewData] = useState("");
     const navigate = useNavigate();
 
-    const handleSubmit = async(field) => {
+    const handleSubmit = async (field) => {
+        if (field === 'password') {
+            if (newData.length < 8) {
+                alert("Password must be at least 8 characters long.");
+                return;
+            }
+        } else if (field === 'phone') {
+            if (newData.length !== 10 || !/^\d+$/.test(newData)) {
+                alert("Please provide a valid 10-digit phone number.");
+                return;
+            }
+        }
         let api = '';
-        if(field === 'email') {
-            api = `http://localhost:8083/users/update/newEmail/${newData}`
-        } else if(field === 'password') {
-            api = `http://localhost:8083/users/update/newPassword/${newData}`
-        } else if(field === 'phone') {
-            api = `http://localhost:8083/users/update/newPhone/${newData}`
+        let requestBody = {};
+    
+        if (field === 'email') {
+            api = `http://localhost:8083/users/update/newEmail`;
+            requestBody = { newEmail: newData };  
+        } else if (field === 'password') {
+            api = `http://localhost:8083/users/update/newPassword`;
+            requestBody = { newPassword: newData };  
+        } else if (field === 'phone') {
+            api = `http://localhost:8083/users/update/newPhone`;
+            requestBody = { newPhone: newData };  
         }
         try {
-            const response = await axios.patch(api, {}, {
-                auth : {
-                    username : user.email,
-                    password : user.password
+            const response = await axios.patch(api,requestBody, {
+                auth: {
+                    username: user.email,
+                    password: user.password
                 }
             });
+
             setUserDetails(prevState => ({
-                ...prevState, 
-                [field] : newData
+                ...prevState,
+                [field]: newData
             }));
-            if( field === 'email'){
-                login({...user, email : newData});
-            } else if( field === 'password'){
-                login({...user, password : newData});
+
+            if (field === 'email') {
+                login({ ...user, email: newData });
+            } else if (field === 'password') {
+                login({ ...user, password: newData });
             }
             setEditingField(null);
         } catch (error) {
-            console.error("Failed Updating ${field}")
+            console.error(`Failed Updating ${field}:`, error);
+            alert(`Failed Updating ${field}. Please try again.`);
         }
     };
 
@@ -52,22 +71,21 @@ const Account = () => {
     }
 
     useEffect(() => {
-        const fetchUserDetails = async() => {
+        const fetchUserDetails = async () => {
             try {
                 const response = await axios.get('http://localhost:8083/users/accountPage', {
                     auth: {
-                        username : user.email,
-                        password : user.password
+                        username: user.email,
+                        password: user.password
                     }
                 });
-                setUserDetails(response.data);
+                setUserDetails(response.data.users);
             } catch (error) {
-                console.error("Fetching user details failed.");
+                console.error("Fetching user details failed:", error);
             }
         };
         fetchUserDetails();
     }, [user]);
-
 
     return (
         <div className="account-container">

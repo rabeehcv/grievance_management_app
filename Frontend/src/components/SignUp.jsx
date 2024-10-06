@@ -13,11 +13,27 @@ const SignUp = () => {
 
     const handleSignUp = async(e) => {
         e.preventDefault();
+        if (password.length < 8) {
+            alert("Password must be at least 8 characters long");
+            return; 
+        }
+        if (!/^\d+$/.test(phone)) {
+            alert("Provide a valid phone number");
+            return; 
+        }
+        if (phone.length !=10 ) {
+            alert("Phone number must be 10 digits");
+            return; 
+        }
         const userData = {firstName, lastName, email, password, phone};
         try {
             const response = await axios.post('http://localhost:8083/users/create', userData);
-            alert('User Registration Completed Successfully!');
-            navigate('/login');
+            if (response.data.status === 'Success'){
+                alert('User Registration Completed Successfully!');
+                navigate('/login');
+            } else if (response.data.status === 'Failure') {
+                alert('Email already exists. Please use a different email.');
+            }
         } catch (error) {
             console.error('Sign Up failed:', error);
         }

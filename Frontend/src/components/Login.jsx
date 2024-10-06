@@ -28,7 +28,7 @@ const Login = () => {
                     password : password
                 }
             });
-            const fetchedRole = userData.data.role;
+            const fetchedRole = userData.data.users.role;
             if (fetchedRole === credentials.role) {
                 if (fetchedRole === 'USER') {
                     navigate('/user/grievance');

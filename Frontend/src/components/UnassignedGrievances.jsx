@@ -24,7 +24,7 @@ const UnassignedGrievances = () => {
                         password : user.password
                     }
                 });
-                setGrievances(response.data);
+                setGrievances(response.data.data);
             } catch (error) {
                 console.error("Fetching failed", error);
             }
@@ -38,7 +38,7 @@ const UnassignedGrievances = () => {
                         password : user.password
                     }
                 });
-                setAssignee(response.data);
+                setAssignee(response.data.assignees);
             } catch (error) {
                 console.error("Fetching assignees failed.");
             }
@@ -66,7 +66,8 @@ const UnassignedGrievances = () => {
                 console.error("Invalid assigneeId");
                 return;
             }
-            const response = await axios.patch(`http://localhost:8083/grievance/supervisor/assignGrievance/grievanceId/${grievanceId}/assigneeId/${assigneeId}/category/${category}`, {}, {
+            const assignment = {grievanceId, assigneeId, category}
+            const response = await axios.patch(`http://localhost:8083/grievance/supervisor/assignGrievance`, assignment, {
                 auth : {
                     username : user.email,
                     password : user.password
@@ -78,7 +79,7 @@ const UnassignedGrievances = () => {
                     password : user.password
                 }
             });
-            setGrievances(updatedGrievances.data);
+            setGrievances(updatedGrievances.data.data);
             setEditingField(null);
         } catch(error) {
             console.error("Assigning grievance failed.",error);
